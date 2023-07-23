@@ -79,11 +79,14 @@ class HomePage extends StatelessWidget {
                       HexColor(ColorsConst.gradientBlue)
                     ])),
             child: TextButton(
-              style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  elevation: 50),
+              style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10))),
+                elevation: MaterialStateProperty.all<double>(50),
+                overlayColor: MaterialStateProperty.all<Color>(
+                    HexColor(ColorsConst.orange)),
+              ),
               onPressed: () {},
               child: TitleText(
                 text: "Get Started",

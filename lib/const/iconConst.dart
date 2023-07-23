@@ -4,4 +4,5 @@ class IconConst {
   static String twitterIcon = "assets/images/twitter.svg";
   static String developerIcon = "assets/images/developer.png";
   static String projectIcon = "assets/images/project.png";
+  static String googleIcon = "assets/images/google.svg";
 }

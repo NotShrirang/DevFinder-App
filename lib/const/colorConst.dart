@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 
 class ColorsConst {
-  static String orange = "#E37324";
+  static String orange = "#EB7724";
   static String black = "#000000";
   static String darkGrey = "#2E2C2C";
   static String white = "#FFFFFF";
