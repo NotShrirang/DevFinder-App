@@ -1,5 +1,4 @@
 // ignore_for_file: file_names, must_be_immutable, prefer_typing_uninitialized_variables
-
 import 'package:devfinder/const/iconConst.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,6 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/link.dart';
 import 'package:devfinder/const/colorConst.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class BackgroundColorDF extends StatelessWidget {
   Widget body, bottomNavigationBar;
@@ -51,6 +49,14 @@ class ProfileCard extends StatelessWidget {
       required this.image,
       required this.twitter,
       required this.github});
+
+  widgetImage() {
+    if (image == null) {
+      return AssetImage(IconConst.developerIcon);
+    } else {
+      return NetworkImage(image);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +101,7 @@ class ProfileCard extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 50,
                           backgroundColor: HexColor(ColorsConst.black),
-                          backgroundImage: AssetImage(IconConst.developerIcon),
+                          backgroundImage: widgetImage(),
                         ),
                       ),
                     ),
@@ -134,7 +140,7 @@ class ProfileCard extends StatelessWidget {
                         target: LinkTarget.blank,
                         uri: Uri.parse(github),
                         builder: (context, followLink) => IconButton(
-                              onPressed: () => {print("Github")},
+                              onPressed: () => followLink!(),
                               icon: SvgPicture.asset(
                                 IconConst.githubIcon,
                                 width: 40,
@@ -143,16 +149,17 @@ class ProfileCard extends StatelessWidget {
                               ),
                             )),
                     SizedBox(width: Get.width * 0.03),
-                    IconButton(
-                        onPressed: () {
-                          // Open URL
-                        },
-                        icon: SvgPicture.asset(
-                          IconConst.twitterIcon,
-                          width: 30,
-                          height: 30,
-                          color: HexColor(ColorsConst.white),
-                        )),
+                    Link(
+                        target: LinkTarget.blank,
+                        uri: Uri.parse(github),
+                        builder: (context, followLink) => IconButton(
+                            onPressed: () => followLink!(),
+                            icon: SvgPicture.asset(
+                              IconConst.twitterIcon,
+                              width: 100,
+                              height: 100,
+                              color: HexColor(ColorsConst.white),
+                            ))),
                   ],
                 ),
                 SizedBox(height: Get.height * 0.02),
@@ -164,28 +171,35 @@ class ProfileCard extends StatelessWidget {
 }
 
 class ProjectsCard extends StatelessWidget {
-  String name;
-  String domain;
-  String description;
-  String github;
-  var image;
+  String title;
+  String owner;
+  var featuredImage;
+  String sourceLink;
 
   ProjectsCard(
       {super.key,
-      required this.name,
-      required this.domain,
-      required this.description,
-      required this.image,
-      required this.github});
+      required this.title,
+      required this.owner,
+      required this.featuredImage,
+      required this.sourceLink});
+
+  imageBuilder() {
+    if (featuredImage == null) {
+      return AssetImage(IconConst.projectIcon);
+    } else {
+      return NetworkImage(featuredImage);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: Get.width * 0.9,
-      height: Get.height * 0.7,
+      height: Get.height * 0.5,
       child: IconButton(
         onPressed: () {},
         icon: Container(
+          width: Get.width * 0.9,
           decoration: BoxDecoration(
             color: HexColor(ColorsConst.black),
             borderRadius: const BorderRadius.all(Radius.circular(10)),
@@ -193,21 +207,27 @@ class ProjectsCard extends StatelessWidget {
           ),
           child: Column(
             children: [
-              SizedBox(height: Get.height * 0.02),
-              Container(
-                width: Get.width * 0.9,
-                height: Get.height * 0.2,
-                decoration: BoxDecoration(
-                  color: HexColor(ColorsConst.darkGrey),
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  border: Border.all(
-                      color: HexColor(ColorsConst.white), width: 0.4),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  width: Get.width * 0.85,
+                  height: Get.height * 0.2,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: imageBuilder(),
+                      fit: BoxFit.cover,
+                    ),
+                    color: HexColor(ColorsConst.darkGrey),
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    border: Border.all(
+                        color: HexColor(ColorsConst.white), width: 0.4),
+                  ),
                 ),
               ),
               SizedBox(height: Get.height * 0.02),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(name,
+                child: Text(title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: HexColor(ColorsConst.orange),
@@ -218,22 +238,13 @@ class ProjectsCard extends StatelessWidget {
                     )),
               ),
               SizedBox(height: Get.height * 0.01),
-              Text(description,
+              Text(owner,
                   style: TextStyle(
-                    color: HexColor(ColorsConst.white),
+                    color: HexColor(ColorsConst.lightGrey),
                     fontSize: 15,
                     fontWeight: FontWeight.bold,
                     fontFamily: GoogleFonts.mulish().fontFamily,
                   )),
-              SizedBox(height: Get.height * 0.02),
-              IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                    IconConst.githubIcon,
-                    width: 30,
-                    height: 30,
-                    color: HexColor(ColorsConst.white),
-                  ))
             ],
           ),
         ),

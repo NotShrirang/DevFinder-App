@@ -13,63 +13,15 @@ class DevelopersPage extends StatelessWidget {
   const DevelopersPage({super.key});
 
   Future<List<Developer>> fetchDeveloper() async {
-    // print('Hello!');
-    // final response =
-    //     await http.get(Uri.parse('https://devfinder.xyz/user-api/profiles/'));
-
-    // print('Hello! ' + response.body.toString());
-    // if (response.statusCode == 200) {
-    //   var developers = jsonDecode(response.body);
-    //   return developers
-    //       .map((developer) => Developer.fromJson(developer))
-    //       .toList();
-    // } else {
-    //   throw Exception('Failed to load Developer');
-    // }
-    var data = """[
-  {
-    "name": "Rahul",
-    "username": "rahul",
-    "email": "rahul@google.com",
-    "url": "https://google.com",
-    "skills": ["Flutter", "Dart", "Python"],
-    "messages_sent": ["Hello", "Hi"],
-    "messages_received": ["Hello", "Hi"],
-    "location": "India",
-    "shortIntro": "Hello",
-    "bio": "Hello",
-    "profileImage": "https://google.com",
-    "socialGithub": "https://github.com",
-    "socialTwitter": "https://twitter.com",
-    "socialYoutube": "https://youtube.com",
-    "socialWebsite": "https://google.com",
-    "socialHashnode": "https://google.com",
-    "createdAt": "2021-08-01T00:00:00.000Z"
-  },
-  {
-    "name": "Rahul",
-    "username": "rahul",
-    "email": "rahul@google.com",
-    "url": "https://google.com",
-    "skills": ["Flutter", "Dart", "Python"],
-    "messages_sent": ["Hello", "Hi"],
-    "messages_received": ["Hello", "Hi"],
-    "location": "India",
-    "shortIntro": "Hello",
-    "bio": "Hello",
-    "profileImage": "https://google.com",
-    "socialGithub": "https://github.com",
-    "socialTwitter": "https://twitter.com",
-    "socialYoutube": "https://youtube.com",
-    "socialWebsite": "https://google.com",
-    "socialHashnode": "https://google.com",
-    "createdAt": "2021-08-01T00:00:00.000Z"
-  }
-]""";
-    final List<dynamic> developers = jsonDecode(data);
-    return developers
-        .map((developer) => Developer.fromJson(developer))
-        .toList();
+    final response =
+        await http.get(Uri.parse('https://devfinder.xyz/user-api/profiles/'));
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body) as Map<String, dynamic>;
+      var data = jsonResponse['results'] as List<dynamic>;
+      return data.map((developer) => Developer.fromJson(developer)).toList();
+    } else {
+      throw Exception('Failed to load Developer');
+    }
   }
 
   @override
@@ -84,6 +36,7 @@ class DevelopersPage extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
+            print(snapshot.error);
             return Center(
               child: TitleText(
                 text: snapshot.error.toString(),
@@ -112,7 +65,6 @@ class DevelopersPage extends StatelessWidget {
               ),
             );
           } else {
-            // Handle the case when snapshot has neither error nor data
             return Center(
               child: TitleText(
                 text: "No developers found",

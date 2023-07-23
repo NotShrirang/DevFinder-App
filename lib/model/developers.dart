@@ -4,15 +4,15 @@ class Developer {
   final String email;
   final String url;
   final List skills, messages_sent, messages_received;
-  final String location;
-  final String shortIntro;
-  final String bio;
-  final String profileImage;
-  final String socialGithub;
-  final String socialTwitter;
-  final String socialYoutube;
-  final String socialWebsite;
-  final String socialHashnode;
+  dynamic location;
+  dynamic shortIntro;
+  dynamic bio;
+  dynamic profileImage;
+  dynamic socialGithub;
+  dynamic socialTwitter;
+  dynamic socialYoutube;
+  dynamic socialWebsite;
+  dynamic socialHashnode;
   final DateTime createdAt;
 
   Developer({
@@ -23,36 +23,37 @@ class Developer {
     required this.skills,
     required this.messages_sent,
     required this.messages_received,
-    required this.location,
-    required this.shortIntro,
-    required this.bio,
-    required this.profileImage,
-    required this.socialGithub,
-    required this.socialTwitter,
-    required this.socialYoutube,
-    required this.socialWebsite,
-    required this.socialHashnode,
+    this.location,
+    this.shortIntro,
+    this.bio,
+    this.profileImage,
+    this.socialGithub,
+    this.socialTwitter,
+    this.socialYoutube,
+    this.socialWebsite,
+    this.socialHashnode,
     required this.createdAt,
   });
 
-  factory Developer.fromJson(Map<String, dynamic> json) {
+  factory Developer.fromJson(json) {
+    // print(json);
     return Developer(
-      name: json['name'],
-      username: json['username'],
-      email: json['email'],
       url: json['url'],
       skills: json['skills'],
       messages_sent: json['messages_sent'],
       messages_received: json['messages_received'],
-      location: json['location'],
-      shortIntro: json['shortIntro'],
-      bio: json['bio'],
+      name: json['name'],
+      email: json['email'],
+      username: json['username'].toString(),
+      location: json['location'].toString(),
+      shortIntro: json['shortIntro'].toString(),
+      bio: json['bio'].toString(),
       profileImage: json['profileImage'],
-      socialGithub: json['socialGithub'],
-      socialTwitter: json['socialTwitter'],
-      socialYoutube: json['socialYoutube'],
-      socialWebsite: json['socialWebsite'],
-      socialHashnode: json['socialHashnode'],
+      socialGithub: json['socialGithub'].toString(),
+      socialTwitter: json['socialTwitter'].toString(),
+      socialYoutube: json['socialYoutube'].toString(),
+      socialWebsite: json['socialWebsite'].toString(),
+      socialHashnode: json['socialHashnode'].toString(),
       createdAt: DateTime.parse(json['createdAt']),
     );
   }
