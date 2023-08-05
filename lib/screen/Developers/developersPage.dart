@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 import 'dart:convert';
+import 'package:devfinder/const/apiConst.dart';
 import 'package:devfinder/const/colorConst.dart';
+import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:devfinder/widget/textWidgets.dart';
 import 'package:flutter/material.dart';
@@ -13,10 +15,11 @@ class DevelopersPage extends StatelessWidget {
   const DevelopersPage({super.key});
 
   Future<List<Developer>> fetchDeveloper() async {
-    final response =
-        await http.get(Uri.parse('https://devfinder.xyz/user-api/profiles/'));
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body) as Map<String, dynamic>;
+    // final response =
+    //     await http.get(Uri.parse('https://devfinder.xyz/user-api/profiles/'));
+    final response = await Api().get(ApiConst.getAllProfiles);
+    if (response != null) {
+      var jsonResponse = response;
       var data = jsonResponse['results'] as List<dynamic>;
       return data.map((developer) => Developer.fromJson(developer)).toList();
     } else {
@@ -36,7 +39,7 @@ class DevelopersPage extends StatelessWidget {
               ),
             );
           } else if (snapshot.hasError) {
-            print(snapshot.error);
+            // print(snapshot.error);
             return Center(
               child: TitleText(
                 text: snapshot.error.toString(),

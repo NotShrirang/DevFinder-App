@@ -36,7 +36,7 @@ class Developer {
   });
 
   factory Developer.fromJson(json) {
-    // print(json);
+    // // print(json);
     return Developer(
       url: json['url'],
       skills: json['skills'],

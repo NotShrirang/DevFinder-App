@@ -43,6 +43,10 @@ dependencies:
   flutter_svg: ^2.0.5
   url_launcher: ^6.1.11
   localstorage: ^4.0.1+4
+  google_sign_in: ^6.1.4
+  firebase_auth: ^4.7.1
+  get_storage: ^2.1.1
+  jwt_decoder: ^2.0.1
 
 dev_dependencies:
   flutter_test:
