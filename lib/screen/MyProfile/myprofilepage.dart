@@ -218,14 +218,33 @@ class _MyProfileState extends State<MyProfile> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: const Text("Sign Out"),
-                                    content: const Text("Are you sure?"),
+                                    elevation: 20,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(30),
+                                      side: BorderSide(
+                                        color: HexColor(ColorsConst.orange),
+                                      ),
+                                    ),
+                                    shadowColor: HexColor(ColorsConst.orange),
+                                    backgroundColor:
+                                        HexColor(ColorsConst.black),
+                                    title: Text("Sign Out",
+                                        style: TextStyle(
+                                            color:
+                                                HexColor(ColorsConst.orange))),
+                                    content: Text("Are you sure?",
+                                        style: TextStyle(
+                                            color:
+                                                HexColor(ColorsConst.orange))),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
                                           Get.back();
                                         },
-                                        child: const Text("No"),
+                                        child: Text("No",
+                                            style: TextStyle(
+                                                color: HexColor(
+                                                    ColorsConst.orange))),
                                       ),
                                       TextButton(
                                         onPressed: () async {
@@ -234,7 +253,10 @@ class _MyProfileState extends State<MyProfile> {
                                           await storage.signOut();
                                           Get.offAllNamed('/');
                                         },
-                                        child: const Text("Yes"),
+                                        child: Text("Yes",
+                                            style: TextStyle(
+                                                color: HexColor(
+                                                    ColorsConst.orange))),
                                       ),
                                     ],
                                   );
@@ -309,8 +331,16 @@ class _MyProfileState extends State<MyProfile> {
                                     TextEditingController skillController =
                                         TextEditingController();
                                     return AlertDialog(
+                                      elevation: 20,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(30),
+                                        side: BorderSide(
+                                          color: HexColor(ColorsConst.orange),
+                                        ),
+                                      ),
                                       backgroundColor:
-                                          HexColor(ColorsConst.darkGrey),
+                                          HexColor(ColorsConst.black),
+                                      shadowColor: HexColor(ColorsConst.orange),
                                       scrollable: true,
                                       title: Text(
                                         'Add Skill',
@@ -318,19 +348,16 @@ class _MyProfileState extends State<MyProfile> {
                                             color:
                                                 HexColor(ColorsConst.orange)),
                                       ),
-                                      content: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Form(
-                                          child: Column(
-                                            children: <Widget>[
-                                              MyTextField(
-                                                controller: skillController,
-                                                placeholder: "Add new skill...",
-                                                color: ColorsConst.white,
-                                                obsceureText: false,
-                                              )
-                                            ],
-                                          ),
+                                      content: Form(
+                                        child: Column(
+                                          children: <Widget>[
+                                            MyTextField(
+                                              controller: skillController,
+                                              placeholder: "Add new skill...",
+                                              color: ColorsConst.white,
+                                              obsceureText: false,
+                                            )
+                                          ],
                                         ),
                                       ),
                                       actions: [

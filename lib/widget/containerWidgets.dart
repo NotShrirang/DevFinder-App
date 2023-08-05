@@ -10,14 +10,18 @@ import 'package:devfinder/const/colorConst.dart';
 
 class BackgroundColorDF extends StatelessWidget {
   Widget body, bottomNavigationBar;
+  PreferredSizeWidget appBar;
   BackgroundColorDF(
       {super.key,
+      this.appBar = const PreferredSize(
+          preferredSize: Size.fromHeight(0.0), child: SizedBox()),
       required this.body,
       this.bottomNavigationBar = const SizedBox()});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: appBar,
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
