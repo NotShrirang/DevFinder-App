@@ -2,6 +2,7 @@
 
 import 'package:devfinder/const/colorConst.dart';
 import 'package:devfinder/controller/getStorage.dart';
+import 'package:devfinder/controller/signin.dart';
 import 'package:devfinder/screen/WelcomePage/welcomePage.dart';
 import 'package:devfinder/screen/Developers/developersPage.dart';
 import 'package:devfinder/screen/MyProfile/myprofilepage.dart';
@@ -38,10 +39,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // if (storage.isLogin == false) {
-    //   Get.offAllNamed('/');
-    // }
     return BackgroundColorDF(
+      appBar: AppBar(
+        backgroundColor: HexColor(ColorsConst.grey),
+        title: Text(
+          widget.title,
+          style: const TextStyle(
+              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () async {},
+              icon: Icon(
+                Icons.local_post_office_rounded,
+                color: HexColor(ColorsConst.orange),
+                size: 30,
+              ))
+        ],
+      ),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
           items: [
