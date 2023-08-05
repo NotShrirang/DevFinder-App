@@ -9,17 +9,21 @@ class MyTextField extends StatelessWidget {
   TextEditingController controller;
   String placeholder;
   String color;
+  bool obsceureText;
 
   MyTextField(
       {super.key,
       required this.controller,
       required this.placeholder,
-      required this.color});
+      required this.color,
+      required this.obsceureText});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
+      obscureText: obsceureText,
+      style: TextStyle(color: HexColor(ColorsConst.white)),
       decoration: InputDecoration(
         hintText: placeholder,
         fillColor: HexColor(ColorsConst.darkGrey),

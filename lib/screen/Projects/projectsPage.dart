@@ -2,9 +2,11 @@
 
 import 'dart:convert';
 
+import 'package:devfinder/const/apiConst.dart';
 import 'package:devfinder/const/colorConst.dart';
 import 'package:devfinder/const/iconConst.dart';
 import 'package:devfinder/model/projects.dart';
+import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:devfinder/widget/textWidgets.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +19,9 @@ class ProjectsPage extends StatelessWidget {
   const ProjectsPage({super.key});
 
   Future<List<Project>> fetchDeveloper() async {
-    final response = await http
-        .get(Uri.parse('https://devfinder.xyz/project-api/projects/'));
-    if (response.statusCode == 200) {
-      var jsonResponse = json.decode(response.body) as Map<String, dynamic>;
+    final response = await Api().get(ApiConst.getAllProjects);
+    if (response != null) {
+      var jsonResponse = response;
       var data = jsonResponse['results'] as List<dynamic>;
       return data.map((project) => Project.fromJson(project)).toList();
     } else {
@@ -40,7 +41,7 @@ class ProjectsPage extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasError) {
-          print(snapshot.error);
+          // print(snapshot.error);
           return Center(
             child: TitleText(
               text: snapshot.error.toString(),
@@ -71,7 +72,7 @@ class ProjectsPage extends StatelessWidget {
         } else {
           return Center(
             child: TitleText(
-              text: "No developers found",
+              text: "No projects found",
               color: ColorsConst.white,
             ),
           );
@@ -82,9 +83,11 @@ class ProjectsPage extends StatelessWidget {
 
   Widget buildProjects(Project e) {
     return ProjectsCard(
-        title: e.title,
-        owner: e.owner,
-        featuredImage: e.featuredImage,
-        sourceLink: e.sourceLink);
+      title: e.title,
+      owner: e.owner,
+      featuredImage: e.featuredImage,
+      sourceLink: e.sourceLink,
+      description: e.description,
+    );
   }
 }
