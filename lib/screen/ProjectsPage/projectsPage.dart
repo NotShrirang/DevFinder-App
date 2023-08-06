@@ -11,6 +11,7 @@ import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:devfinder/widget/textWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -52,15 +53,22 @@ class ProjectsPage extends StatelessWidget {
           final projects = snapshot.data!;
           return Center(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: Get.height * 0.1),
-                TitleText(
-                  text: "Projects",
-                  color: ColorsConst.white,
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
+                SizedBox(height: Get.height * 0.035),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.width * 0.05,
+                      vertical: Get.height * 0.01),
+                  child: TitleText(
+                    text: "Projects",
+                    fontFamily: GoogleFonts.outfit().fontFamily,
+                    color: ColorsConst.white,
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                SizedBox(height: Get.height * 0.03),
+                SizedBox(height: Get.height * 0.035),
                 Expanded(
                   child: ListView(
                     children: projects.map(buildProjects).toList(),

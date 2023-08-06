@@ -7,16 +7,14 @@ import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:devfinder/widget/textWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart' as http;
 import 'package:devfinder/model/developers.dart';
 
 class DevelopersPage extends StatelessWidget {
   const DevelopersPage({super.key});
 
   Future<List<Developer>> fetchDeveloper() async {
-    // final response =
-    //     await http.get(Uri.parse('https://devfinder.xyz/user-api/profiles/'));
     final response = await Api().get(ApiConst.getAllProfiles);
     if (response != null) {
       var jsonResponse = response;
@@ -48,24 +46,31 @@ class DevelopersPage extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             final developers = snapshot.data!;
-            return Center(
-              child: Column(
-                children: [
-                  SizedBox(height: Get.height * 0.1),
-                  TitleText(
-                    text: "Profiles",
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: Get.height * 0.035),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Get.width * 0.05,
+                      vertical: Get.height * 0.01),
+                  child: TitleText(
+                    text: "Developers",
                     color: ColorsConst.white,
-                    fontSize: 32,
+                    fontSize: 28,
                     fontWeight: FontWeight.bold,
+                    textAlign: TextAlign.center,
+                    fontFamily: GoogleFonts.outfit().fontFamily,
                   ),
-                  SizedBox(height: Get.height * 0.03),
-                  Expanded(
-                    child: ListView(
-                      children: developers.map(buildDevelopers).toList(),
-                    ),
+                ),
+                SizedBox(height: Get.height * 0.03),
+                Expanded(
+                  child: ListView(
+                    children: developers.map(buildDevelopers).toList(),
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           } else {
             return Center(
@@ -80,9 +85,10 @@ class DevelopersPage extends StatelessWidget {
 
   Widget buildDevelopers(Developer e) {
     return ProfileCard(
+        uid: e.url.split("/")[5],
         name: e.name,
-        domain: e.username,
-        description: e.email,
+        username: e.username,
+        description: e.bio,
         image: e.profileImage,
         twitter: e.socialTwitter,
         github: e.socialGithub);

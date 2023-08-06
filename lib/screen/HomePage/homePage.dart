@@ -6,12 +6,13 @@ import 'package:devfinder/controller/signin.dart';
 import 'package:devfinder/screen/WelcomePage/welcomePage.dart';
 import 'package:devfinder/screen/Developers/developersPage.dart';
 import 'package:devfinder/screen/MyProfile/myprofilepage.dart';
-import 'package:devfinder/screen/Projects/projectsPage.dart';
+import 'package:devfinder/screen/ProjectsPage/projectsPage.dart';
 import 'package:devfinder/screen/Login/loginPage.dart';
 import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -44,8 +45,11 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: HexColor(ColorsConst.grey),
         title: Text(
           widget.title,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 25),
+          style: TextStyle(
+              fontFamily: GoogleFonts.inter().fontFamily,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 24),
         ),
         actions: [
           IconButton(
@@ -85,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
           iconSize: 40,
           onTap: _onItemTapped,
           elevation: 5,
-          backgroundColor: HexColor(ColorsConst.black)),
+          backgroundColor: HexColor(ColorsConst.darkGrey)),
     );
   }
 }

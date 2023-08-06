@@ -96,14 +96,45 @@ class Api {
         var response = await http.post(Uri.parse(ApiConst.BASEURL + endPoint),
             body: data, headers: {"Authorization": "Bearer $accessToken"});
 
-        print(response.body);
+        // print(response.body);
         return jsonDecode(response.body);
       }
     } else {
       var response = await http.post(Uri.parse(ApiConst.BASEURL + endPoint),
           body: data, headers: {"Authorization": "Bearer $accessToken"});
 
-      print(response.body);
+      // print(response.body);
+      return jsonDecode(response.body);
+    }
+  }
+
+  Future put(String endPoint, dynamic data) async {
+    var accessToken = storage.readAccess();
+    if (accessToken != null) {
+      if (JwtDecoder.isExpired(accessToken)) {
+        var response = await http.post(
+          Uri.parse(ApiConst.BASEURL + ApiConst.refreshAccessToken),
+          body: {"refresh": storage.readRefresh()},
+        );
+        var data = jsonDecode(response.body);
+        storage.box.erase();
+        storage.writeAccess(data['access']);
+        storage.writeRefresh(data['refresh']);
+        var response2 = await http.put(Uri.parse(ApiConst.BASEURL + endPoint),
+            body: data, headers: {"Authorization": "Bearer $accessToken"});
+
+        return jsonDecode(response2.body);
+      } else {
+        var response = await http.put(Uri.parse(ApiConst.BASEURL + endPoint),
+            body: data, headers: {"Authorization": "Bearer $accessToken"});
+
+        // print("Response: ${response.body}");
+        return response;
+      }
+    } else {
+      var response = await http.put(Uri.parse(ApiConst.BASEURL + endPoint),
+          body: data, headers: {"Authorization": "Bearer $accessToken"});
+      // print("Response: ${response.body}");
       return jsonDecode(response.body);
     }
   }

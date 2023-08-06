@@ -36,7 +36,7 @@ class Developer {
   });
 
   factory Developer.fromJson(json) {
-    // // print(json);
+    // print(json);
     return Developer(
       url: json['url'],
       skills: json['skills'],
@@ -63,9 +63,10 @@ class Developer {
         'username': username,
         'email': email,
         'url': url,
-        'skills': skills,
-        'messages_sent': messages_sent,
-        'messages_received': messages_received,
+        'skills': skills == [] ? "[]" : skills.toString(),
+        'messages_sent': messages_sent == [] ? "[]" : messages_sent.toString(),
+        'messages_received':
+            messages_received == [] ? "[]" : messages_received.toString(),
         'location': location,
         'shortIntro': shortIntro,
         'bio': bio,
@@ -75,6 +76,6 @@ class Developer {
         'socialYoutube': socialYoutube,
         'socialWebsite': socialWebsite,
         'socialHashnode': socialHashnode,
-        'createdAt': createdAt,
+        'createdAt': createdAt.toString(),
       };
 }

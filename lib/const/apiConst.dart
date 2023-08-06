@@ -11,4 +11,5 @@ class ApiConst {
   static String getAllProjects = "project-api/projects/";
   static String createSkill = "user-api/profiles/<str:pk>/skills/create/";
   static String getCurrentUserProjects = "user-api/profiles/<str:pk>/projects/";
+  static String updateProfile = "user-api/profiles/<str:pk>/update/";
 }
