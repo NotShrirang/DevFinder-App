@@ -5,17 +5,15 @@ import 'package:devfinder/controller/getStorage.dart';
 import 'package:devfinder/controller/signin.dart';
 import 'package:devfinder/model/developers.dart';
 import 'package:devfinder/model/projects.dart';
-import 'package:devfinder/screen/Developers/DevelopersPage/developersProfilePage.dart';
+import 'package:devfinder/screen/Developers/DevelopersProfilePage/developersProfilePage.dart';
 import 'package:devfinder/screen/MyProfile/EditProfile/editProfilePage.dart';
+import 'package:devfinder/screen/ProjectsPage/IndividualProjectPage/individualProjectPage.dart';
 import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/widget/textfieldWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:url_launcher/link.dart';
 import 'package:devfinder/const/colorConst.dart';
 
 class BackgroundColorDF extends StatelessWidget {
@@ -45,6 +43,51 @@ class BackgroundColorDF extends StatelessWidget {
         child: body,
       ),
       bottomNavigationBar: bottomNavigationBar,
+    );
+  }
+}
+
+class MyIconButton extends StatefulWidget {
+  Function onPressed;
+  IconData icon;
+  String text;
+  Color defaultColor;
+  Color onTapColor;
+  double size;
+  Alignment alignment;
+  MyIconButton(
+      {super.key,
+      required this.onPressed,
+      required this.icon,
+      this.text = "",
+      this.defaultColor = Colors.white,
+      this.onTapColor = Colors.orange,
+      this.size = 30.0,
+      this.alignment = Alignment.center});
+
+  @override
+  State<MyIconButton> createState() => _MyIconButtonState();
+}
+
+class _MyIconButtonState extends State<MyIconButton> {
+  Color _iconColor = Colors.white;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          if (_iconColor == widget.onTapColor) {
+            _iconColor = widget.defaultColor;
+          } else {
+            _iconColor = widget.onTapColor;
+          }
+          widget.onPressed();
+        });
+      },
+      icon: Icon(widget.icon, color: _iconColor, fill: 0.0),
+      alignment: widget.alignment,
+      iconSize: widget.size,
     );
   }
 }
@@ -87,6 +130,17 @@ class ProfileCard extends StatelessWidget {
                       appBar: AppBar(
                         backgroundColor: HexColor(ColorsConst.grey),
                         foregroundColor: HexColor(ColorsConst.white),
+                        title: Text(
+                          name,
+                          textAlign: TextAlign.left,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              fontFamily: GoogleFonts.inter().fontFamily,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
                         actions: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -223,7 +277,7 @@ class ProfileCard extends StatelessWidget {
       // ),
       child: Padding(
         padding: EdgeInsets.fromLTRB(
-            Get.width * 0, 0, Get.width * 0, Get.height * 0.03),
+            Get.width * 0, Get.height * 0.01, Get.width * 0, Get.height * 0.01),
         child: Container(
           padding: EdgeInsets.fromLTRB(Get.width * 0.02, Get.width * 0.024,
               Get.width * 0.02, Get.width * 0.024),
@@ -278,33 +332,36 @@ class ProfileCard extends StatelessWidget {
               ),
               SizedBox(width: Get.width * 0.02),
               Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      softWrap: true,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor(ColorsConst.orange),
+                child: Container(
+                  padding: EdgeInsets.fromLTRB(0, 0, Get.width * 0.02, 0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        softWrap: true,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: HexColor(ColorsConst.orange),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: Get.height * 0.01),
-                    Text(
-                      description,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                      maxLines: 5,
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: HexColor(ColorsConst.white),
+                      SizedBox(height: Get.height * 0.01),
+                      Text(
+                        description,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                        maxLines: 5,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: HexColor(ColorsConst.white),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: Get.height * 0.01),
-                  ],
+                      SizedBox(height: Get.height * 0.01),
+                    ],
+                  ),
                 ),
               ),
             ]),
@@ -316,163 +373,165 @@ class ProfileCard extends StatelessWidget {
 }
 
 class ProjectsCard extends StatelessWidget {
-  String title;
-  String description;
-  String owner;
-  var featuredImage;
-  String sourceLink;
+  Project project;
 
-  ProjectsCard(
-      {super.key,
-      required this.title,
-      required this.owner,
-      required this.featuredImage,
-      required this.sourceLink,
-      required this.description});
+  ProjectsCard({
+    super.key,
+    required this.project,
+  });
 
   imageBuilder() {
-    if (featuredImage == null) {
+    if (project.featuredImage == null) {
       return AssetImage(IconConst.projectIcon);
     } else {
-      return NetworkImage(featuredImage);
+      return NetworkImage(project.featuredImage);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(Get.width * 0.05, Get.height * 0.01,
-          Get.width * 0.05, Get.height * 0.01),
-      child: Container(
-        width: Get.width * 0.9,
-        height: Get.height * 0.21,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: HexColor(ColorsConst.darkGrey)),
-        child: Center(
-            child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)),
-              ),
-              child: Row(
-                children: [
-                  Container(
-                    width: Get.width * 0.4,
-                    height: Get.height * 0.08,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageBuilder(),
-                        fit: BoxFit.cover,
+    return MaterialButton(
+      onPressed: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BackgroundColorDF(
+                      appBar: AppBar(
+                        backgroundColor: HexColor(ColorsConst.grey),
+                        foregroundColor: HexColor(ColorsConst.white),
+                        title: Text(
+                          project.title,
+                          style: TextStyle(
+                              fontFamily: GoogleFonts.inter().fontFamily,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24),
+                        ),
                       ),
-                      borderRadius:
-                          const BorderRadius.only(topLeft: Radius.circular(10)),
+                      body: IndividualProjectCard(
+                        project: project,
+                      ),
+                    )));
+      },
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(Get.width * 0.05, Get.height * 0.01,
+            Get.width * 0.05, Get.height * 0.01),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: HexColor(ColorsConst.darkGrey)),
+          child: Center(
+              child: Column(
+            children: [
+              Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: Get.width * 0.4,
+                      height: Get.height * 0.08,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageBuilder(),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(10)),
+                      ),
                     ),
-                  ),
-                  Container(
-                    width: Get.width * 0.005,
-                    height: Get.height * 0.08,
-                    decoration: BoxDecoration(
-                      color: HexColor(ColorsConst.orange),
+                    Container(
+                      width: Get.width * 0.005,
+                      height: Get.height * 0.08,
+                      decoration: BoxDecoration(
+                        color: HexColor(ColorsConst.orange),
+                      ),
                     ),
-                  ),
-                  SizedBox(width: Get.width * 0.06),
-                  Container(
-                    width: Get.width * 0.4,
-                    height: Get.height * 0.08,
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(title,
-                            textAlign: TextAlign.center,
-                            softWrap: true,
-                            overflow: TextOverflow.fade,
-                            maxLines: 2,
-                            style: TextStyle(
-                              color: HexColor(ColorsConst.orange),
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: GoogleFonts.mulish().fontFamily,
-                              fontStyle: FontStyle.italic,
-                            )),
-                        SizedBox(height: Get.height * 0.01),
-                        Text(owner,
-                            textAlign: TextAlign.center,
-                            softWrap: true,
-                            overflow: TextOverflow.fade,
-                            maxLines: 1,
-                            style: TextStyle(
-                              color: HexColor(ColorsConst.lightGrey),
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: GoogleFonts.mulish().fontFamily,
-                            )),
-                      ],
+                    Container(
+                      width: Get.width * 0.4,
+                      height: Get.height * 0.08,
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(project.title,
+                              textAlign: TextAlign.center,
+                              softWrap: true,
+                              overflow: TextOverflow.fade,
+                              maxLines: 2,
+                              style: TextStyle(
+                                color: HexColor(ColorsConst.orange),
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: GoogleFonts.mulish().fontFamily,
+                                fontStyle: FontStyle.italic,
+                              )),
+                          SizedBox(height: Get.height * 0.01),
+                          // Text(project.owner,
+                          //     textAlign: TextAlign.center,
+                          //     softWrap: true,
+                          //     overflow: TextOverflow.fade,
+                          //     maxLines: 1,
+                          //     style: TextStyle(
+                          //       color: HexColor(ColorsConst.lightGrey),
+                          //       fontSize: 12,
+                          //       fontWeight: FontWeight.bold,
+                          //       fontFamily: GoogleFonts.mulish().fontFamily,
+                          //     )),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              height: Get.height * 0.001,
-              decoration: BoxDecoration(color: HexColor(ColorsConst.grey)),
-            ),
-            Container(
-              height: Get.height * 0.1244,
-              padding: EdgeInsets.all(Get.width * 0.03),
-              alignment: Alignment.center,
-              child: Text(
-                description,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: GoogleFonts.inter().fontFamily,
-                    color: Colors.white,
-                    fontSize: 12),
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 3,
+              Container(
+                height: Get.height * 0.001,
+                decoration: BoxDecoration(color: HexColor(ColorsConst.grey)),
               ),
-            )
-          ],
-        )),
+              Container(
+                height: Get.height * 0.1244,
+                padding: EdgeInsets.all(Get.width * 0.03),
+                alignment: Alignment.center,
+                child: Text(
+                  project.description,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: GoogleFonts.inter().fontFamily,
+                      color: Colors.white,
+                      fontSize: 12),
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
+                ),
+              )
+            ],
+          )),
+        ),
       ),
     );
   }
 }
 
-class ProfilePage extends StatefulWidget {
+class ProfilePage extends StatelessWidget {
   String uid;
   ProfilePage({super.key, required this.uid});
-
-  @override
-  State<ProfilePage> createState() => _ProfilePageState();
-}
-
-class _ProfilePageState extends State<ProfilePage> {
   dynamic displayImage;
   var skills = [];
   List<Project> projects = [];
   bool isUser = false;
 
   @override
-  void initState() {
-    super.initState();
-    final storage = Get.put(StoreController());
-    final loggedInUser = storage.readUid();
-    if (widget.uid == loggedInUser) {
-      isUser = true;
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     dynamic getProfile() async {
-      var response =
-          await Api().get("${ApiConst.getAllProfiles}${widget.uid}/");
+      final storage = Get.put(StoreController());
+      final loggedInUser = storage.readUid();
+      if (uid == loggedInUser) {
+        isUser = true;
+      }
+      var response = await Api().get("${ApiConst.getAllProfiles}${uid}/");
       if (response['profileImage'] == null) {
         displayImage = AssetImage(IconConst.developerIcon);
       } else {
@@ -480,8 +539,8 @@ class _ProfilePageState extends State<ProfilePage> {
       }
       skills = response['skills'];
       var developerData = Developer.fromJson(response);
-      Map projectResponse = await Api().get(
-          ApiConst.getCurrentUserProjects.replaceAll("<str:pk>", widget.uid));
+      Map projectResponse = await Api()
+          .get(ApiConst.getCurrentUserProjects.replaceAll("<str:pk>", uid));
       List projectsResults = projectResponse['results'];
       projects =
           projectsResults.map((project) => Project.fromJson(project)).toList();
@@ -757,7 +816,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     children: [
                       Container(
                         margin: EdgeInsets.fromLTRB(
-                            Get.width * 0.06, 0, Get.width * 0.06, 0),
+                            Get.width * 0.06,
+                            (isUser) ? 0 : Get.height * 0.02,
+                            Get.width * 0.06,
+                            0),
                         child: Text(
                           (isUser) ? "My Skills" : "Skills",
                           style: TextStyle(
@@ -842,18 +904,16 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     Get.put(StoreController());
                                                 var response = Api().post(
                                                     ApiConst.createSkill
-                                                        .replaceAll("<str:pk>",
-                                                            widget.uid),
+                                                        .replaceAll(
+                                                            "<str:pk>", uid),
                                                     {
                                                       "name": skillController
                                                           .text
                                                           .trim()
                                                     });
-                                                setState(() {
-                                                  skills.add(skillController
-                                                      .text
-                                                      .trim());
-                                                });
+
+                                                skills.add(skillController.text
+                                                    .trim());
                                                 Get.snackbar('Success!',
                                                     'Added Skill : ${skillController.text.trim()}',
                                                     snackPosition:
@@ -973,10 +1033,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget loadProjects(Project e) {
     return ProjectsCard(
-        title: e.title,
-        owner: e.owner,
-        featuredImage: e.featuredImage,
-        sourceLink: e.sourceLink,
-        description: e.description);
+      project: e,
+    );
   }
 }

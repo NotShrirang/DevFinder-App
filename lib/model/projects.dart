@@ -26,7 +26,6 @@ class Project {
   });
 
   factory Project.fromJson(json) {
-    // print(json);
     return Project(
       url: json['url'],
       tags: json['tags'],

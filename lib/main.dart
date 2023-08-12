@@ -1,4 +1,5 @@
 import 'package:devfinder/const/colorConst.dart';
+import 'package:devfinder/screen/MyProfile/myprofilepage.dart';
 import 'package:devfinder/screen/WelcomePage/welcomePage.dart';
 import 'package:devfinder/screen/Login/loginPage.dart';
 import 'package:devfinder/utils/apiCall.dart';

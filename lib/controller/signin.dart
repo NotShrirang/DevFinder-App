@@ -77,7 +77,7 @@ class MyController extends GetxController {
       storage.writeRefresh(response['refresh']);
       var currentUser = await Api().get(ApiConst.getCurrentUser);
       storage.writeUid(currentUser['uuid']);
-      Get.to(() => const MyHomePage(title: 'DevFinder'));
+      Get.to(() => MyHomePage(title: 'DevFinder'));
       storage.isUserlogin(true);
     } else {
       Get.to(() => const WelcomePage());

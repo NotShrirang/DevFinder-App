@@ -2,17 +2,12 @@
 import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:flutter/material.dart';
 
-class DevelopersProfilePage extends StatefulWidget {
+class DevelopersProfilePage extends StatelessWidget {
   String uid;
   DevelopersProfilePage({super.key, required this.uid});
 
   @override
-  State<DevelopersProfilePage> createState() => _DevelopersProfilePageState();
-}
-
-class _DevelopersProfilePageState extends State<DevelopersProfilePage> {
-  @override
   Widget build(BuildContext context) {
-    return ProfilePage(uid: widget.uid);
+    return ProfilePage(uid: uid);
   }
 }

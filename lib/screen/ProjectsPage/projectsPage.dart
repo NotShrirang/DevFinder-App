@@ -91,11 +91,7 @@ class ProjectsPage extends StatelessWidget {
 
   Widget buildProjects(Project e) {
     return ProjectsCard(
-      title: e.title,
-      owner: e.owner,
-      featuredImage: e.featuredImage,
-      sourceLink: e.sourceLink,
-      description: e.description,
+      project: e,
     );
   }
 }
