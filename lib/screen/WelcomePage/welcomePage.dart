@@ -90,7 +90,7 @@ class WelcomePage extends StatelessWidget {
                       HexColor(ColorsConst.orange)),
                 ),
                 onPressed: () {
-                  Get.toNamed('/login');
+                  Get.toNamed('/userOnboarding');
                 },
                 child: TitleText(
                   text: "Get Started",

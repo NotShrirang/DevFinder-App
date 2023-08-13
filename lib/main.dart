@@ -1,4 +1,5 @@
 import 'package:devfinder/const/colorConst.dart';
+import 'package:devfinder/screen/Login/userOnboardingPage.dart';
 import 'package:devfinder/screen/MyProfile/myprofilepage.dart';
 import 'package:devfinder/screen/WelcomePage/welcomePage.dart';
 import 'package:devfinder/screen/Login/loginPage.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (context) => const MyHomePage(title: 'DevFinder'),
         '/login': (context) => const LoginPage(),
+        '/userOnboarding': (context) => const UserOnboardingPage(),
       },
     );
   }

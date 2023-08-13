@@ -2,13 +2,9 @@
 
 import 'package:devfinder/const/colorConst.dart';
 import 'package:devfinder/controller/getStorage.dart';
-import 'package:devfinder/controller/signin.dart';
-import 'package:devfinder/screen/WelcomePage/welcomePage.dart';
 import 'package:devfinder/screen/Developers/developersPage.dart';
 import 'package:devfinder/screen/MyProfile/myprofilepage.dart';
 import 'package:devfinder/screen/ProjectsPage/projectsPage.dart';
-import 'package:devfinder/screen/Login/loginPage.dart';
-import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

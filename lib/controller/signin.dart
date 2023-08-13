@@ -15,14 +15,13 @@ class MyController extends GetxController {
 
   Future checkIfValidToken(accessToken) async {
     var response = await Api().get(ApiConst.verifyAuthentication);
-    // print("Hello idiot: " + response);
     var responseBody = json.decode(response.body);
     try {
       if (responseBody['code'] == 'token_not_valid') {
         return false;
       }
     } catch (e) {
-      // print("");
+      print(e);
     }
     if (response.statusCode == 200) {
       return true;
@@ -37,10 +36,8 @@ class MyController extends GetxController {
 // Else, it returns null.
   {
     var accessToken = await storage.readAccess();
-    // print(accessToken);
     if (accessToken != null) {
       if (await checkIfValidToken(accessToken) == true) {
-        // print("IsValid");
         return accessToken;
       } else {
         var response = await Api().post(ApiConst.refreshAccessToken, {
@@ -56,9 +53,9 @@ class MyController extends GetxController {
 
   Future handleLogin(String username, String password) async {
     if (username.isEmpty || password.isEmpty) {
-      Get.snackbar('Error', 'Please fill all the fields',
+      Get.snackbar("Error", "Please fill all the fields",
           snackPosition: SnackPosition.TOP,
-          backgroundColor: HexColor(ColorsConst.darkGrey),
+          barBlur: 20,
           colorText: HexColor(ColorsConst.white));
       return;
     }
@@ -67,17 +64,13 @@ class MyController extends GetxController {
       "password": password,
     });
     if (response != null) {
-      // try {
-      //   storage.box.erase();
-      // } catch (e) {
-      //   print(e);
-      // }
       storage.box.erase();
       storage.writeAccess(response['access']);
       storage.writeRefresh(response['refresh']);
       var currentUser = await Api().get(ApiConst.getCurrentUser);
       storage.writeUid(currentUser['uuid']);
-      Get.to(() => MyHomePage(title: 'DevFinder'));
+      Get.offAll(() => const MyHomePage(title: 'DevFinder'),
+          transition: Transition.rightToLeft);
       storage.isUserlogin(true);
     } else {
       Get.to(() => const WelcomePage());

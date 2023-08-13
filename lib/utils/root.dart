@@ -13,12 +13,11 @@ class Root extends StatelessWidget {
       init: StoreController(),
       initState: (_) {},
       builder: (_) {
-        // print(_.isLogin);
         return _.isLogin == true
-            ? MyHomePage(
+            ? const MyHomePage(
                 title: 'DevFinder',
               )
-            : WelcomePage();
+            : const WelcomePage();
       },
     );
   }

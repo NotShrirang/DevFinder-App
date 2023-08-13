@@ -32,9 +32,8 @@ class _IndividualProjectCardState extends State<IndividualProjectCard> {
   var tags = [];
 
   BottomDrawerController _controller = BottomDrawerController();
-  String _button = 'None';
-  double _headerHeight = Get.height * 0.1;
-  double _bodyHeight = Get.height * 0.9;
+  final double _headerHeight = Get.height * 0.1;
+  final double _bodyHeight = Get.height * 0.9;
   TextEditingController _commentController = TextEditingController();
 
   imageBuilder() {
@@ -291,7 +290,7 @@ class _IndividualProjectCardState extends State<IndividualProjectCard> {
       controller: _controller,
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.15),
+          color: Colors.black.withOpacity(0.8),
           blurRadius: 60,
           spreadRadius: 5,
           offset: const Offset(2, -6),

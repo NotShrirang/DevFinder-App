@@ -1,16 +1,11 @@
 // ignore_for_file: file_names
 
-import 'package:devfinder/const/apiConst.dart';
-import 'package:devfinder/controller/getStorage.dart';
 import 'package:devfinder/controller/signin.dart';
-import 'package:devfinder/screen/HomePage/homePage.dart';
-import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:devfinder/const/colorConst.dart';
 import 'package:devfinder/const/iconConst.dart';
-import 'package:devfinder/screen/WelcomePage/welcomePage.dart';
 import 'package:devfinder/widget/textWidgets.dart';
 import 'package:devfinder/widget/textfieldWidgets.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +21,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController usernameController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-
-    @override
-    void dispose() {
-      usernameController.dispose();
-      passwordController.dispose();
-    }
 
     GoogleSignIn googleSignIn = GoogleSignIn(
         clientId:
@@ -64,7 +53,7 @@ class LoginPage extends StatelessWidget {
           child: ListView(
         children: [
           SizedBox(
-            height: Get.height * 0.1,
+            height: Get.height * 0.05,
           ),
           TitleText(
             text: 'Log In',
@@ -73,7 +62,7 @@ class LoginPage extends StatelessWidget {
             color: ColorsConst.white,
           ),
           SizedBox(
-            height: Get.height * 0.1,
+            height: Get.height * 0.03,
           ),
           Padding(
             padding:
@@ -122,7 +111,7 @@ class LoginPage extends StatelessWidget {
                 EdgeInsets.fromLTRB(Get.width * 0.07, 0, Get.width * 0.07, 0),
             child: Container(
               width: Get.width * 0.6,
-              height: Get.height * 0.08,
+              height: Get.height * 0.05,
               decoration: BoxDecoration(
                 border:
                     Border.all(color: HexColor(ColorsConst.white), width: 0.4),
