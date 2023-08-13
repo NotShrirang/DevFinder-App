@@ -13,6 +13,7 @@ import 'package:devfinder/widget/textWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/link.dart';
 
 class IndividualProjectCard extends StatefulWidget {
@@ -341,7 +342,7 @@ class _IndividualProjectCardState extends State<IndividualProjectCard> {
                   MyIconButton(
                     onPressed: () {},
                     onTapColor: HexColor(ColorsConst.orange),
-                    size: 35,
+                    size: 28,
                     icon: Icons.favorite,
                   ),
                   IconButton(
@@ -352,14 +353,14 @@ class _IndividualProjectCardState extends State<IndividualProjectCard> {
                         splashFactory: NoSplash.splashFactory,
                         padding: MaterialStateProperty.all(
                             EdgeInsets.all(Get.width * 0.02))),
-                    icon: Icon(Icons.comment_outlined,
-                        size: 35, color: HexColor(ColorsConst.white)),
+                    icon: Icon(Icons.mode_comment_outlined,
+                        size: 28, color: HexColor(ColorsConst.white)),
                   ),
                   IconButton(
                     key: UniqueKey(),
                     onPressed: () {
-                      // Share.share(
-                      //     "Checkout this project on DevFinder: ${project.title} \n ${project.demoLink}");
+                      Share.share(
+                          "Checkout this project on DevFinder: ${widget.project.title} \n https://dev-finder-5b30d7.netlify.app/projects/project/${widget.project.url.split("/")[5]}");
                     },
                     style: ButtonStyle(
                         splashFactory: NoSplash.splashFactory,
@@ -367,7 +368,7 @@ class _IndividualProjectCardState extends State<IndividualProjectCard> {
                             EdgeInsets.all(Get.width * 0.02))),
                     icon: Icon(
                       Icons.share_outlined,
-                      size: 35,
+                      size: 28,
                       color: HexColor(ColorsConst.white),
                     ),
                   ),
