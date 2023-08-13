@@ -1,19 +1,14 @@
 // ignore_for_file: file_names
 
-import 'dart:convert';
-
 import 'package:devfinder/const/apiConst.dart';
 import 'package:devfinder/const/colorConst.dart';
-import 'package:devfinder/const/iconConst.dart';
 import 'package:devfinder/model/projects.dart';
 import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/widget/containerWidgets.dart';
 import 'package:devfinder/widget/textWidgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
 
 class ProjectsPage extends StatelessWidget {

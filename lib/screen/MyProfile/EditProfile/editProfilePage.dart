@@ -3,11 +3,9 @@
 import 'package:devfinder/const/apiConst.dart';
 import 'package:devfinder/const/colorConst.dart';
 import 'package:devfinder/controller/getStorage.dart';
-import 'package:devfinder/controller/signin.dart';
 import 'package:devfinder/model/developers.dart';
 import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/widget/containerWidgets.dart';
-import 'package:devfinder/widget/textWidgets.dart';
 import 'package:devfinder/widget/textfieldWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

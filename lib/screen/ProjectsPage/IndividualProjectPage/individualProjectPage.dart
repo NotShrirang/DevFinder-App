@@ -25,6 +25,7 @@ class IndividualProjectCard extends StatefulWidget {
 }
 
 class _IndividualProjectCardState extends State<IndividualProjectCard> {
+  // ignore: prefer_typing_uninitialized_variables
   var displayImage;
 
   late Developer developer;
@@ -82,190 +83,185 @@ class _IndividualProjectCardState extends State<IndividualProjectCard> {
           } else if (snapshot.hasData) {
             return Stack(
               children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: SingleChildScrollView(
-                          child: Container(
-                            padding:
-                                EdgeInsets.fromLTRB(0, 0, 0, Get.height * 0.02),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Stack(
-                                  children: [
-                                    Container(
-                                      height: Get.height * 0.25,
-                                      width: Get.width,
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                          colorFilter: ColorFilter.mode(
-                                              Colors.black.withOpacity(0.5),
-                                              BlendMode.darken),
-                                          image: imageBuilder(),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      bottom: Get.height * 0.01,
-                                      left: Get.width * 0.03,
-                                      width: Get.width * 0.7,
-                                      child: Text(
-                                        widget.project.title,
-                                        style: TextStyle(
-                                            color: HexColor(ColorsConst.white),
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 35),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: Get.height * 0.02),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "Developer",
-                                      style: TextStyle(
-                                          color: HexColor(ColorsConst.orange),
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
-                                    ),
-                                    SizedBox(height: Get.height * 0.01),
-                                    ProfileCard(
-                                      uid: widget.project.owner,
-                                      name: developer.name,
-                                      username: developer.username,
-                                      description: developer.bio,
-                                      image: developer.profileImage,
-                                      twitter: developer.socialTwitter,
-                                      github: developer.socialGithub,
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: Get.height * 0.02),
-                                Link(
-                                  target: LinkTarget.blank,
-                                  uri: Uri.parse(widget.project.demoLink),
-                                  builder: (context, followLink) => Container(
+                Column(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding:
+                              EdgeInsets.fromLTRB(0, 0, 0, Get.height * 0.02),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    height: Get.height * 0.25,
+                                    width: Get.width,
                                     decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                            color: HexColor(ColorsConst.white),
-                                            width: 0.4),
-                                        gradient: LinearGradient(
-                                            begin: Alignment.centerRight,
-                                            end: Alignment.centerLeft,
-                                            colors: [
-                                              HexColor(ColorsConst.gradientRed),
-                                              HexColor(
-                                                  ColorsConst.gradientBlack),
-                                              HexColor(ColorsConst.gradientBlue)
-                                            ])),
-                                    child: TextButton(
-                                        onPressed: () => followLink!(),
-                                        style: ButtonStyle(
-                                            splashFactory:
-                                                NoSplash.splashFactory,
-                                            surfaceTintColor:
-                                                MaterialStateProperty.all(
-                                                    Colors.transparent)),
-                                        child: Text(
-                                          "View Source",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color:
-                                                  HexColor(ColorsConst.white),
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold),
-                                        )),
+                                      image: DecorationImage(
+                                        colorFilter: ColorFilter.mode(
+                                            Colors.black.withOpacity(0.5),
+                                            BlendMode.darken),
+                                        image: imageBuilder(),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(height: Get.height * 0.02),
-                                Container(
-                                  height: Get.height * 0.002,
-                                  width: Get.width,
-                                  color: HexColor(ColorsConst.orange),
-                                ),
-                                SizedBox(height: Get.height * 0.02),
-                                Text(
-                                  "About Project",
-                                  style: TextStyle(
-                                      color: HexColor(ColorsConst.orange),
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: Get.height * 0.02),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: Get.width * 0.05),
-                                  child: Text(
-                                    widget.project.description,
-                                    textAlign: TextAlign.left,
+                                  Positioned(
+                                    bottom: Get.height * 0.01,
+                                    left: Get.width * 0.03,
+                                    width: Get.width * 0.7,
+                                    child: Text(
+                                      widget.project.title,
+                                      style: TextStyle(
+                                          color: HexColor(ColorsConst.white),
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 35),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: Get.height * 0.02),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Developer",
                                     style: TextStyle(
-                                        color: HexColor(ColorsConst.white),
+                                        color: HexColor(ColorsConst.orange),
+                                        fontWeight: FontWeight.bold,
                                         fontSize: 20),
                                   ),
+                                  SizedBox(height: Get.height * 0.01),
+                                  ProfileCard(
+                                    uid: widget.project.owner,
+                                    name: developer.name,
+                                    username: developer.username,
+                                    description: developer.bio,
+                                    image: developer.profileImage,
+                                    twitter: developer.socialTwitter,
+                                    github: developer.socialGithub,
+                                  )
+                                ],
+                              ),
+                              SizedBox(height: Get.height * 0.02),
+                              Link(
+                                target: LinkTarget.blank,
+                                uri: Uri.parse(widget.project.demoLink),
+                                builder: (context, followLink) => Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                          color: HexColor(ColorsConst.white),
+                                          width: 0.4),
+                                      gradient: LinearGradient(
+                                          begin: Alignment.centerRight,
+                                          end: Alignment.centerLeft,
+                                          colors: [
+                                            HexColor(ColorsConst.gradientRed),
+                                            HexColor(ColorsConst.gradientBlack),
+                                            HexColor(ColorsConst.gradientBlue)
+                                          ])),
+                                  child: TextButton(
+                                      onPressed: () => followLink!(),
+                                      style: ButtonStyle(
+                                          splashFactory: NoSplash.splashFactory,
+                                          surfaceTintColor:
+                                              MaterialStateProperty.all(
+                                                  Colors.transparent)),
+                                      child: Text(
+                                        "View Source",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: HexColor(ColorsConst.white),
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      )),
                                 ),
-                                SizedBox(height: Get.height * 0.02),
-                                Container(
-                                  height: Get.height * 0.002,
-                                  width: Get.width,
-                                  color: HexColor(ColorsConst.orange),
-                                ),
-                                SizedBox(height: Get.height * 0.02),
-                                Text(
-                                  "Tags",
+                              ),
+                              SizedBox(height: Get.height * 0.02),
+                              Container(
+                                height: Get.height * 0.002,
+                                width: Get.width,
+                                color: HexColor(ColorsConst.orange),
+                              ),
+                              SizedBox(height: Get.height * 0.02),
+                              Text(
+                                "About Project",
+                                style: TextStyle(
+                                    color: HexColor(ColorsConst.orange),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: Get.height * 0.02),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * 0.05),
+                                child: Text(
+                                  widget.project.description,
+                                  textAlign: TextAlign.left,
                                   style: TextStyle(
-                                      color: HexColor(ColorsConst.orange),
-                                      fontWeight: FontWeight.bold,
+                                      color: HexColor(ColorsConst.white),
                                       fontSize: 20),
-                                  textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: Get.height * 0.02),
-                                SizedBox(
-                                  height: Get.height * 0.05,
-                                  width: Get.width,
-                                  child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: tags.length,
-                                      itemBuilder: (context, index) {
-                                        return Container(
-                                          margin: EdgeInsets.symmetric(
-                                              horizontal: Get.width * 0.02),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: Get.width * 0.02),
-                                          decoration: BoxDecoration(
-                                              color: HexColor(ColorsConst.grey),
-                                              border: Border.all(
-                                                  color: HexColor(
-                                                      ColorsConst.orange),
-                                                  width: 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Center(
-                                            child: Text(
-                                              tags[index]['name'],
-                                              style: TextStyle(
-                                                  color: HexColor(
-                                                      ColorsConst.white),
-                                                  fontSize: 15),
-                                            ),
+                              ),
+                              SizedBox(height: Get.height * 0.02),
+                              Container(
+                                height: Get.height * 0.002,
+                                width: Get.width,
+                                color: HexColor(ColorsConst.orange),
+                              ),
+                              SizedBox(height: Get.height * 0.02),
+                              Text(
+                                "Tags",
+                                style: TextStyle(
+                                    color: HexColor(ColorsConst.orange),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                                textAlign: TextAlign.center,
+                              ),
+                              SizedBox(height: Get.height * 0.02),
+                              SizedBox(
+                                height: Get.height * 0.05,
+                                width: Get.width,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: tags.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: Get.width * 0.02),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: Get.width * 0.02),
+                                        decoration: BoxDecoration(
+                                            color: HexColor(ColorsConst.grey),
+                                            border: Border.all(
+                                                color: HexColor(
+                                                    ColorsConst.orange),
+                                                width: 1),
+                                            borderRadius:
+                                                BorderRadius.circular(20)),
+                                        child: Center(
+                                          child: Text(
+                                            tags[index]['name'],
+                                            style: TextStyle(
+                                                color:
+                                                    HexColor(ColorsConst.white),
+                                                fontSize: 15),
                                           ),
-                                        );
-                                      }),
-                                ),
-                                SizedBox(height: Get.height * 0.1),
-                              ],
-                            ),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              SizedBox(height: Get.height * 0.1),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 _buildBottomDrawer(context),
               ],
@@ -300,7 +296,7 @@ class _IndividualProjectCardState extends State<IndividualProjectCard> {
   }
 
   Widget _buildBottomDrawerHead(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: _headerHeight,
       child: Column(
         children: [

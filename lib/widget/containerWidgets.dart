@@ -531,7 +531,7 @@ class ProfilePage extends StatelessWidget {
       if (uid == loggedInUser) {
         isUser = true;
       }
-      var response = await Api().get("${ApiConst.getAllProfiles}${uid}/");
+      var response = await Api().get("${ApiConst.getAllProfiles}$uid/");
       if (response['profileImage'] == null) {
         displayImage = AssetImage(IconConst.developerIcon);
       } else {
@@ -900,9 +900,7 @@ class ProfilePage extends StatelessWidget {
                                                       color: HexColor(
                                                           ColorsConst.orange))),
                                               onPressed: () {
-                                                final storage =
-                                                    Get.put(StoreController());
-                                                var response = Api().post(
+                                                Api().post(
                                                     ApiConst.createSkill
                                                         .replaceAll(
                                                             "<str:pk>", uid),

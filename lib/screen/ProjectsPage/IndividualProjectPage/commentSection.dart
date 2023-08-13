@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:bottom_drawer/bottom_drawer.dart';
 
 // ignore: must_be_immutable
 class CommentSection extends StatelessWidget {

@@ -4,7 +4,6 @@ import 'package:devfinder/controller/getStorage.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:devfinder/const/apiConst.dart';
-import 'package:localstorage/localstorage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 
 // final LocalStorage storage = LocalStorage('devfinder_vault.json');

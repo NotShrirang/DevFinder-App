@@ -1,14 +1,9 @@
-import 'package:devfinder/const/colorConst.dart';
 import 'package:devfinder/screen/Login/userOnboardingPage.dart';
-import 'package:devfinder/screen/MyProfile/myprofilepage.dart';
-import 'package:devfinder/screen/WelcomePage/welcomePage.dart';
 import 'package:devfinder/screen/Login/loginPage.dart';
-import 'package:devfinder/utils/apiCall.dart';
 import 'package:devfinder/utils/root.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hexcolor/hexcolor.dart';
 import 'screen/HomePage/homePage.dart';
 import 'dart:io';
 
@@ -32,7 +27,7 @@ class MyHttpOverrides extends HttpOverrides {
 Future<void> main() async {
   HttpOverrides.global = MyHttpOverrides();
   await GetStorage.init();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

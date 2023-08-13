@@ -189,6 +189,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           "Success", "Welcome to DevFinder, ${usernameController.text.trim()}!",
           snackPosition: SnackPosition.TOP,
           colorText: HexColor(ColorsConst.white));
+
       final storage = Get.put(MyController());
       storage.handleLogin(
           usernameController.text.trim(), passwordController.text.trim());
